@@ -6,6 +6,8 @@ import CartProvider from "./context/CartProvider.jsx";
 import MenuProvider from "./context/MenuProvider.jsx";
 import ShopTimeProvider from "./context/ShopTimeProvider.jsx";
 import CartPage from "./pages/CartPage.jsx";
+import CheckoutPage from "./pages/CheckoutPage.jsx";
+import ConfirmationPage from "./pages/ConfirmationPage.jsx";
 import ItemDetailsPage from "./pages/ItemDetailsPage.jsx";
 import MenuPage from "./pages/MenuPage.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
@@ -24,6 +26,8 @@ export default function App() {
               <Route index element={<MenuPage />} />
               <Route path="items/:id" element={<ItemDetailsPage />} />
               <Route path="cart" element={<CartPage />} />
+              <Route path="checkout" element={<CheckoutPage />} />
+              <Route path="confirmation" element={<ConfirmationPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Routes>
