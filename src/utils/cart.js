@@ -37,29 +37,36 @@ export function cartLines(cart, menuItems) {
 // checked against the current menu. Every correction is reported, nothing is silent.
 export function sanitizeCart(saved, menuItems) {
   const notes = [];
+  // Each message is added once, even if several entries cause it.
+  const note = (message) => {
+    if (!notes.includes(message)) notes.push(message);
+  };
   if (!Array.isArray(saved)) return { cart: [], notes };
 
   const seen = new Set();
   const cart = [];
-  let removedUnknown = false; // report "no longer on the menu" once, not once per item
   for (const entry of saved) {
     const id = entry && entry.id;
     const item = menuItems.find((m) => m.id === id);
     if (!item) {
-      if (!removedUnknown) notes.push("An item in your saved order is no longer on the menu and was removed.");
-      removedUnknown = true;
+      note("An item in your saved order is no longer on the menu and was removed.");
       continue;
     }
-    if (seen.has(id)) continue;
+    if (seen.has(id)) {
+      note(`${item.name} was saved more than once. The extra entry was ignored.`);
+      continue;
+    }
     seen.add(id);
     if (item.soldOut) {
-      notes.push(`${item.name} is sold out now and was removed from your saved order.`);
+      note(`${item.name} is sold out now and was removed from your saved order.`);
       continue;
     }
     const wanted = Number(entry.quantity);
     const fixed = clampQuantity(item, wanted);
-    if (Number.isInteger(wanted) && wanted > item.maxPerOrder) {
-      notes.push(`${item.name} was reduced from ${wanted} to ${fixed} (maximum ${item.maxPerOrder} per order).`);
+    if (!Number.isInteger(wanted) || wanted < 1) {
+      note(`${item.name} had an invalid saved quantity and was set to ${fixed}.`);
+    } else if (wanted > item.maxPerOrder) {
+      note(`${item.name} was reduced from ${wanted} to ${fixed} (maximum ${item.maxPerOrder} per order).`);
     }
     cart.push({ id, quantity: fixed });
   }

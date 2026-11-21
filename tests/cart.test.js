@@ -35,7 +35,9 @@ test("sanitizeCart fixes a damaged saved cart and explains every change", () => 
     menuItems
   );
   assert.deepEqual(cart, [{ id: "weekend-karahi-feast", quantity: 2 }, { id: "lassi", quantity: 1 }]);
-  assert.equal(notes.length, 2);
+  // One note each: over the limit, unknown item, and an unreadable quantity.
+  assert.equal(notes.length, 3);
+  assert.ok(notes.some((n) => /invalid saved quantity/.test(n)));
   assert.deepEqual(sanitizeCart("garbage", menuItems), { cart: [], notes: [] });
 });
 test("sanitizeCart removes sold-out items with a note", () => {
@@ -66,4 +68,16 @@ test("sanitizeCart reports unknown items once, so the notes have no duplicates",
   const { cart, notes } = sanitizeCart(saved, menuItems);
   assert.deepEqual(cart, []);
   assert.equal(notes.length, 1);
+});
+
+test("sanitizeCart explains invalid quantities and duplicate entries instead of fixing them silently", () => {
+  const saved = [
+    { id: "lassi", quantity: -3 },
+    { id: "masala-fries", quantity: "abc" },
+    { id: "lassi", quantity: 5 },
+  ];
+  const { cart, notes } = sanitizeCart(saved, menuItems);
+  assert.deepEqual(cart, [{ id: "lassi", quantity: 1 }, { id: "masala-fries", quantity: 1 }]);
+  assert.equal(notes.length, 3);
+  assert.equal(new Set(notes).size, notes.length);
 });
