@@ -133,7 +133,7 @@ export const menuItems = [
     name: "Lassi",
     category: "Drinks",
     service: "all-day",
-    price: 190, // change this to the price in your Task 2 document
+    price: 190, 
     serves: 1,
     vegetarian: true,
     limitedBatch: false,

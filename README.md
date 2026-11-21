@@ -8,7 +8,7 @@ A React ordering website for a fictional Islamabad desi restaurant. Customers br
 | | |
 |---|---|
 | GitHub repository | https://github.com/talalnaeem14/margalla-dera |
-| Deployed website  | Select-String -Path README.md -Pattern "vercel.app" |
+| Deployed website  |https://margalla-dera.vercel.app/ |
 | Final commit hash | Stated in the submitted report (a commit cannot contain its own hash) |
 
 **Everything is simulated.** No payment is taken, nothing is delivered, and the form asks for a nickname and a fictional phone number only. No personal information is stored or sent anywhere.
