@@ -4,9 +4,12 @@ import { MenuContext } from "./menuContext.js";
 
 // Loads the menu once and shares it with every page, so the menu and the
 // details page always see the same data (FR08).
+// It also holds the "sold out" demo overrides, so changing availability updates
+// every page at once (Task 6 demonstration control).
 export default function MenuProvider({ children }) {
   const [state, setState] = useState({ status: "loading", items: [], error: null });
   const [attempt, setAttempt] = useState(0);
+  const [soldOutOverrides, setSoldOutOverrides] = useState({});
 
   useEffect(() => {
     let cancelled = false;
@@ -30,7 +33,20 @@ export default function MenuProvider({ children }) {
     setAttempt((n) => n + 1); // functional update: next value depends on the previous one
   }, []);
 
-  const value = useMemo(() => ({ ...state, reload }), [state, reload]);
+  const setSoldOut = useCallback((id, soldOut) => {
+    setSoldOutOverrides((prev) => ({ ...prev, [id]: soldOut }));
+  }, []);
+
+  // Derived value: the loaded items with any demo override applied on top.
+  const items = useMemo(
+    () => state.items.map((item) => (item.id in soldOutOverrides ? { ...item, soldOut: soldOutOverrides[item.id] } : item)),
+    [state.items, soldOutOverrides]
+  );
+
+  const value = useMemo(
+    () => ({ status: state.status, error: state.error, items, reload, setSoldOut }),
+    [state.status, state.error, items, reload, setSoldOut]
+  );
 
   return <MenuContext.Provider value={value}>{children}</MenuContext.Provider>;
 }

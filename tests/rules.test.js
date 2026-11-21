@@ -70,3 +70,26 @@ test("getOrderProblems: reports closed, conflict and over-limit together", () =>
 test("getOrderProblems: empty cart is a problem", () => {
   assert.equal(getOrderProblems([], parseTime("12:00"))[0].code, "empty");
 });
+
+test("getOrderProblems: a sold-out item blocks the order and is named", () => {
+  const soldOut = { ...byId("lassi"), soldOut: true };
+  const problems = getOrderProblems([{ item: soldOut, quantity: 1 }], parseTime("12:00"));
+  assert.equal(problems[0].code, "unavailable");
+  assert.match(problems[0].message, /Lassi is sold out/);
+});
+
+import { conflictIfAdded } from "../src/rules/compatibilityRule.js";
+test("Rule 2: conflictIfAdded warns only when the new item causes the conflict", () => {
+  assert.notEqual(conflictIfAdded([line("halwa-puri-plate")], byId("chicken-karahi-half")), null);
+  assert.equal(conflictIfAdded([line("halwa-puri-plate")], byId("lassi")), null);
+  assert.equal(conflictIfAdded([], byId("chicken-karahi-half")), null);
+});
+
+test("conflictIfAdded warns before adding and keeps warning once the item is in the order", async () => {
+  const { conflictIfAdded } = await import("../src/rules/compatibilityRule.js");
+  const halwa = { id: "h", name: "Halwa Puri Plate", service: "breakfast" };
+  const karahi = { id: "k", name: "Chicken Karahi (Half)", service: "bbq" };
+  assert.ok(conflictIfAdded([{ item: halwa, quantity: 1 }], karahi));
+  assert.ok(conflictIfAdded([{ item: halwa, quantity: 1 }, { item: karahi, quantity: 1 }], karahi));
+  assert.equal(conflictIfAdded([], karahi), null);
+});

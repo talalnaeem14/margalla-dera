@@ -19,7 +19,14 @@ export function findConflict(lines) {
   };
 }
 
-// Would adding this item create a conflict? Used to warn before the click.
-export function wouldConflict(lines, item) {
-  return findConflict([...lines, { item, quantity: 1 }]) !== null;
+// Is this item part of a conflict, either already in the order or if it were added?
+// Used on the details page so the warning shows before adding AND stays visible
+// while the clashing items are still in the order. Returns the conflict or null.
+export function conflictIfAdded(lines, item) {
+  const alreadyIn = lines.some((l) => l.item.id === item.id);
+  const withItem = alreadyIn ? lines : [...lines, { item, quantity: 1 }];
+  const conflict = findConflict(withItem);
+  if (!conflict) return null;
+  const involved = [...conflict.breakfast, ...conflict.bbq].some((i) => i.id === item.id);
+  return involved ? conflict : null;
 }
