@@ -7,9 +7,9 @@ A React ordering website for a fictional Islamabad desi restaurant. Customers br
 
 | | |
 |---|---|
-| GitHub repository | [paste public repository URL] |
-| Deployed website | [paste public URL] |
-| Final commit hash | [paste after the last push] |
+| GitHub repository | https://github.com/talalnaeem14/margalla-dera |
+| Deployed website | [add the public URL after deployment] |
+| Final commit hash | Stated in the submitted report (a commit cannot contain its own hash) |
 
 **Everything is simulated.** No payment is taken, nothing is delivered, and the form asks for a nickname and a fictional phone number only. No personal information is stored or sent anywhere.
 
@@ -19,7 +19,7 @@ Margalla Dera serves breakfast and chai, rolls and wraps, and BBQ and karahi to 
 
 ## Setup
 
-Requires Node.js 20.19 or newer (or 22.12 or newer), because of the Vite version.
+Requires Node.js 20.19 or newer, 22.13 or newer, or 24 or newer (the range the Vite version supports).
 
 ```bash
 npm install        # install dependencies
@@ -30,7 +30,9 @@ npm run lint       # ESLint
 npm test           # business-rule and logic tests (Node's built-in test runner)
 ```
 
-`npm test` runs `node --test`. All tests should pass (44 at the time of writing).
+`npm test` runs `node --test` on the files in `tests/`. All tests should pass (44 at the time of writing).
+
+The automated business-rule test for Task 6.2 is `tests/rules.test.js`. It tests the rule functions in `src/rules/` that the application itself uses, with a valid case, an exact-limit case and a rule-breaking case for each rule. To run only that file: `node --test tests/rules.test.js`.
 
 ## Routes
 
@@ -88,6 +90,7 @@ The app is a single-page application, so the host must send every path to `index
 - The saved order lives in one browser on one device.
 - Marking an item sold out is a demonstration control and is not remembered after a refresh.
 - Delivery sectors and fees are fixed in `src/data/serviceAreas.js`.
+- Checked in Chromium (the engine behind Chrome and Edge) only. Firefox and Safari were not tested.
 
 ## Concept map
 

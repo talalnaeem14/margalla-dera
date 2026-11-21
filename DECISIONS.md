@@ -2,7 +2,7 @@
 
 Margalla Dera: CS4032 Web Programming, Assignment 02
 
-Each entry records one frontend decision for one problem found on the reference site (Kababjees Fried Chicken, https://kababjeesfriedchicken.com). Screenshot placeholders in [brackets] must be replaced with your own screenshots from the deployed site.
+Each entry records one frontend decision for one problem found on the reference site (Kababjees Fried Chicken, https://kababjeesfriedchicken.com). Screenshots are in `docs/screenshots/`.
 
 ---
 
@@ -34,9 +34,9 @@ A suggestion can occasionally be wrong, so it is worded as a question and never 
 3. Set a budget of 100: the page says "Our cheapest item is Lassi at Rs. 190" and offers "Show items up to Rs. 190".
 4. Choose a category, set a budget of 3000 and sort by price high to low. The results and the "Showing N of 14 items" count update together.
 
-[Screenshot: own app, typo search with suggestion]
+![Typo search showing "Did you mean karahi?"](docs/screenshots/d1-typo-suggestion.png)
 
-[Screenshot: own app, budget too low with the cheapest-item hint]
+![Budget too low, with the cheapest-item hint](docs/screenshots/d1-budget-hint.png)
 
 ---
 
@@ -65,13 +65,13 @@ Users can build a cart they cannot submit right now, which needs clear wording t
 
 **Evidence**
 1. In the footer demo panel press the 22:30 button.
-2. The top bar says "Closed now. We open tomorrow at 08:00." before any item is added.
+2. The top bar starts with "Closed now. We open tomorrow at 08:00." (followed by the simulated time) before any item is added.
 3. Add an item and open the cart: "Continue to checkout" is disabled and the reason is listed. The cart is kept.
-4. Press 22:29: the bar says "Open now. Orders accepted until 22:30." and checkout is enabled.
+4. Press 22:29: the bar starts with "Open now. Orders accepted until 22:30." and checkout is enabled.
 
-[Screenshot: own app, closed bar on the menu]
+![Closed bar at the top of the menu](docs/screenshots/d2-closed-bar.png)
 
-[Screenshot: own app, disabled checkout with the reason]
+![Checkout disabled with the reason shown](docs/screenshots/d2-checkout-disabled.png)
 
 ---
 
@@ -106,6 +106,6 @@ Opening the cart leaves the menu instead of overlaying it, so the quick-glance f
 4. Open an item, add it, open `/cart`, then press Back twice: the item page and then the menu appear, and the address always matches what is shown.
 5. Repeat Back, Forward, Back: no extra or repeated entries appear in the history list.
 
-[Screenshot: own app, menu with filters in the address bar]
+![Menu with filters in the address bar](docs/screenshots/d3-filters-in-url.png)
 
-[Screenshot: own app, history list after Back, Forward, Back]
+![History list after Back, Forward, Back](docs/screenshots/d3-history-list.png)
