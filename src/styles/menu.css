@@ -1,0 +1,41 @@
+/* Menu page styles. Class names start with "mp-" so they cannot clash with base.css. */
+.mp { --mp-ink: #231a14; --mp-muted: #5e5148; --mp-line: #d9cfc4; --mp-accent: #8a2b0e; --mp-bg: #fffaf3; --mp-warn: #8a4b00; }
+.mp h1 { margin: 0 0 1rem; }
+
+.mp-filters { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem 1rem; padding: 1rem; margin-bottom: 1rem; background: var(--mp-bg); border: 1px solid var(--mp-line); border-radius: 12px; }
+.mp-field { display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; }
+.mp-field-wide { grid-column: 1 / -1; }
+.mp-field label { font-weight: 600; font-size: 0.9rem; }
+.mp-field input, .mp-field select { min-height: 44px; padding: 0.5rem 0.75rem; font: inherit; color: var(--mp-ink); background: #fff; border: 1px solid #8c7e72; border-radius: 8px; width: 100%; box-sizing: border-box; }
+
+.mp-chip-group { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+.mp-chip-label { font-size: 0.9rem; color: var(--mp-muted); }
+.mp-chip { min-height: 44px; padding: 0.4rem 0.9rem; font: inherit; color: var(--mp-ink); background: #fff; border: 1px solid #8c7e72; border-radius: 999px; cursor: pointer; }
+.mp-chip[aria-pressed="true"] { background: var(--mp-accent); border-color: var(--mp-accent); color: #fff; font-weight: 600; }
+
+.mp-button { min-height: 44px; padding: 0.5rem 1.1rem; font: inherit; font-weight: 600; color: #fff; background: var(--mp-accent); border: 0; border-radius: 8px; cursor: pointer; }
+.mp-link-button { padding: 0.5rem 0.25rem; min-height: 44px; font: inherit; color: var(--mp-accent); background: none; border: 0; text-decoration: underline; cursor: pointer; }
+
+.mp :focus-visible, .mp-message :focus-visible { outline: 3px solid #1b5fd1; outline-offset: 2px; }
+
+.mp-count { margin: 0 0 0.75rem; color: var(--mp-muted); }
+.mp-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); gap: 1rem; }
+.mp-card { background: #fff; border: 1px solid var(--mp-line); border-radius: 12px; overflow: hidden; }
+.mp-card-link { display: block; height: 100%; padding: 0 0 1rem; color: inherit; text-decoration: none; }
+.mp-card-link:hover h3 { text-decoration: underline; }
+.mp-card h3 { margin: 0.75rem 1rem 0.25rem; overflow-wrap: anywhere; }
+.mp-card-desc { margin: 0 1rem 0.5rem; color: var(--mp-muted); font-size: 0.95rem; }
+.mp-card-image { display: block; width: 100%; height: 120px; object-fit: cover; }
+.mp-card-fallback { display: flex; align-items: center; justify-content: center; font-size: 3rem; font-weight: 700; color: var(--mp-accent); background: #f3e6d6; }
+.mp-card-meta { display: flex; flex-wrap: wrap; gap: 0.5rem 0.75rem; align-items: center; margin: 0 1rem; font-size: 0.9rem; }
+.mp-price { font-weight: 700; font-size: 1.05rem; }
+.mp-tag { padding: 0.1rem 0.5rem; border: 1px solid #2f6b3a; border-radius: 999px; color: #1f5129; font-size: 0.8rem; }
+.mp-tag-warn { border-color: var(--mp-warn); color: var(--mp-warn); }
+
+.mp-empty, .mp-message { padding: 1.25rem; margin: 1rem 0; border: 1px dashed #8c7e72; border-radius: 12px; background: #fffaf3; }
+.mp-empty h2, .mp-message h2 { margin-top: 0; }
+.mp-error { border-style: solid; border-color: #9b1c1c; }
+
+@media (max-width: 480px) {
+  .mp-filters { grid-template-columns: 1fr; padding: 0.75rem; }
+}
