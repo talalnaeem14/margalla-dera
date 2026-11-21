@@ -82,9 +82,9 @@ export default function MenuPage() {
       <section className="mp-message mp-error" role="alert">
         <h2>We couldn't load the menu</h2>
         <p>{error}</p>
-        <button type="button" className="mp-button" onClick={reload}>
-          Try again
-        </button>
+       <button type="button" className="btn btn-primary" onClick={reload}>
+       Try again
+       </button>
       </section>
     );
   }
