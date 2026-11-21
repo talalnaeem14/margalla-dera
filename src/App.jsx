@@ -1,7 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout.jsx";
 import ScrollManager from "./components/ScrollManager.jsx";
-import StatusBar from "./components/StatusBar.jsx";
 import CartProvider from "./context/CartProvider.jsx";
 import MenuProvider from "./context/MenuProvider.jsx";
 import ShopTimeProvider from "./context/ShopTimeProvider.jsx";
@@ -20,7 +19,6 @@ export default function App() {
       <ShopTimeProvider>
         <CartProvider>
           <ScrollManager />
-          <StatusBar />
           <Routes>
             <Route element={<Layout />}>
               <Route index element={<MenuPage />} />

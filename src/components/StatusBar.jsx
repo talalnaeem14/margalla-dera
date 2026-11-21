@@ -12,7 +12,7 @@ export default function StatusBar() {
   const open = isOpenAt(minutes);
 
   return (
-    <div className={`status-bar ${open ? "status-open" : "status-closed"}`}>
+    <aside className={`status-bar ${open ? "status-open" : "status-closed"}`} aria-label="Shop status and your order">
       <div className="container status-bar-inner">
         <p className="status-text" role="status">
           {statusMessage(minutes)}
@@ -22,6 +22,6 @@ export default function StatusBar() {
           Your order ({itemCount})
         </Link>
       </div>
-    </div>
+    </aside>
   );
 }

@@ -1,12 +1,23 @@
 import { NavLink, Outlet } from "react-router-dom";
 import DemoControls from "./DemoControls.jsx";
+import StatusBar from "./StatusBar.jsx";
+
+// Moves focus to the main content without adding a "#main" entry to the history.
+function skipToMain(event) {
+  event.preventDefault();
+  const main = document.getElementById("main");
+  main?.focus();
+  main?.scrollIntoView();
+}
 
 export default function Layout() {
   return (
     <>
-      <a className="skip-link" href="#main">
+      <a className="skip-link" href="#main" onClick={skipToMain}>
         Skip to main content
       </a>
+      {/* After the skip link so it is the first thing a keyboard user reaches. */}
+      <StatusBar />
       <header className="site-header">
         <div className="container header-inner">
           <NavLink to="/" className="brand">

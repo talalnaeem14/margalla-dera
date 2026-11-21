@@ -60,3 +60,10 @@ test("calculateSummary totals, serves and amount left for free delivery", () => 
   assert.equal(s.serves, 3);
   assert.equal(s.amountToFreeDelivery, 1010);
 });
+
+test("sanitizeCart reports unknown items once, so the notes have no duplicates", () => {
+  const saved = [{ id: "gone-1", quantity: 1 }, { id: "gone-2", quantity: 2 }];
+  const { cart, notes } = sanitizeCart(saved, menuItems);
+  assert.deepEqual(cart, []);
+  assert.equal(notes.length, 1);
+});

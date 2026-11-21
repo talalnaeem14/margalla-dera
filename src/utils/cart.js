@@ -41,11 +41,13 @@ export function sanitizeCart(saved, menuItems) {
 
   const seen = new Set();
   const cart = [];
+  let removedUnknown = false; // report "no longer on the menu" once, not once per item
   for (const entry of saved) {
     const id = entry && entry.id;
     const item = menuItems.find((m) => m.id === id);
     if (!item) {
-      notes.push("An item in your saved order is no longer on the menu and was removed.");
+      if (!removedUnknown) notes.push("An item in your saved order is no longer on the menu and was removed.");
+      removedUnknown = true;
       continue;
     }
     if (seen.has(id)) continue;

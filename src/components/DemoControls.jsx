@@ -1,5 +1,11 @@
 import { useState } from "react";
 import { useMenu } from "../context/useMenu.js";
+import {
+  isEmptySimulated,
+  isFailureSimulated,
+  setEmptySimulated,
+  setFailureSimulated,
+} from "../services/mockApi.js";
 import { useShopTime } from "../context/useShopTime.js";
 import "../styles/cart.css";
 
@@ -8,9 +14,12 @@ const BOUNDARY_TIMES = ["07:59", "08:00", "22:29", "22:30"];
 // Labelled demonstration controls (Task 6): simulated clock for Rule 3 and a
 // switch that marks an item sold out. Not part of the customer journey.
 export default function DemoControls() {
-  const { items, setSoldOut } = useMenu();
+  const { items, setSoldOut, reload } = useMenu();
   const { isSimulated, simulatedTime, setSimulated, setSimulatedTime } = useShopTime();
   const [chosenId, setChosenId] = useState("");
+  // The loader settings live in local storage. These copies only drive the checkboxes.
+  const [failOn, setFailOn] = useState(isFailureSimulated);
+  const [emptyOn, setEmptyOn] = useState(isEmptySimulated);
 
   const selected = items.find((i) => i.id === chosenId) ?? items[0];
 
@@ -48,6 +57,35 @@ export default function DemoControls() {
             </button>
           ))}
         </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Menu loading</legend>
+        <label>
+          <input
+            type="checkbox"
+            checked={failOn}
+            onChange={(e) => {
+              setFailOn(e.target.checked);
+              setFailureSimulated(e.target.checked);
+            }}
+          />{" "}
+          Simulate a menu loading failure
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={emptyOn}
+            onChange={(e) => {
+              setEmptyOn(e.target.checked);
+              setEmptySimulated(e.target.checked);
+            }}
+          />{" "}
+          Simulate an empty menu
+        </label>
+        <button type="button" className="btn btn-secondary demo-button" onClick={reload}>
+          Reload menu
+        </button>
       </fieldset>
 
       {selected && (

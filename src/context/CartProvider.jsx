@@ -30,8 +30,10 @@ export default function CartProvider({ children }) {
   const [restored, setRestored] = useState(false);
 
   // Once the menu has loaded, check the saved cart against it exactly once.
+  // An empty menu is skipped: with nothing to compare against, the check would wipe
+  // a customer's saved order. It runs on the next load that has items.
   // Setting state while rendering is allowed in React when it is guarded like this.
-  if (status === "ready" && !restored) {
+  if (status === "ready" && items.length > 0 && !restored) {
     const result = sanitizeCart(cart, items);
     setRestored(true);
     setCart(result.cart);

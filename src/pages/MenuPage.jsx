@@ -29,7 +29,7 @@ function ItemCard({ item }) {
             {item.name.charAt(0)}
           </div>
         )}
-        <h3>{item.name}</h3>
+        <h2>{item.name}</h2>
         <p className="mp-card-desc">{item.description}</p>
         <p className="mp-card-meta">
           <span className="mp-price">{formatPrice(item.price)}</span>
